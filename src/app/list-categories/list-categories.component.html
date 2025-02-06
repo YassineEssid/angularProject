@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="form-group">
+            <input type="text" class="form-control" id="find" placeholder="Titre catégorie" [(ngModel)]="titre" #title="ngModel">
+          </div>
+        <div class="col-md-4" style="margin-bottom: 20px;" *ngFor="let categorie of categories | contains:title.value" appHighlight>
+        <img (click)="getDescription(categorie.description)" [src]="categorie.image" [alt]="categorie.title" class="img-fluid h-50 w-75">
+        <h3>{{categorie.title | uppercase}}</h3>
+        <button *ngIf="categorie.available"  class="btn btn-primary" [routerLink]="['/products', categorie.id]">Voir produits</button>
+        <span *ngIf ="!categorie.available">Pas disponible</span>
+        <button *ngIf="categorie.available"  class="btn btn-primary" (click)="nav(categorie.id)">Voir produits 2</button>
+        <button (click)="deleteCategoryFromBackend(categorie)" class="btn btn-danger">Supprimer</button>
+        <button (click)="onEditCategory(categorie.id)">Modifier</button>
+      </div>
+    </div>
+  </div>

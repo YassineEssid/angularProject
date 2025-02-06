@@ -1,0 +1,76 @@
+<form #productForm="ngForm" (ngSubmit)="onSave(productForm)" novalidate>
+    <div>
+      <label for="name">Product Name:</label>
+      <input 
+        type="text" 
+        id="name" 
+        name="name" 
+        [(ngModel)]="product.name" 
+        #name="ngModel"
+        required 
+        minlength="5"
+        pattern="[a-zA-Z]*" />
+      <div *ngIf="name.invalid && name.touched">
+        <small *ngIf="name.errors?.['required']">Name is required.</small>
+        <small *ngIf="name.errors?.['minlength']">Name must be at least 5 characters long.</small>
+        <small *ngIf="name.errors?.['pattern']">Name can only contain letters.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="categoryId">Category:</label>
+      <input 
+        type="number" 
+        id="categoryId" 
+        name="categoryId" 
+        [(ngModel)]="product.categoryId" 
+        #categoryId="ngModel"
+        required />
+      <div *ngIf="categoryId.invalid && categoryId.touched">
+        <small *ngIf="categoryId.errors?.['required']">Category is required.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="price">Price:</label>
+      <input 
+        type="text" 
+        id="price" 
+        name="price" 
+        [(ngModel)]="product.price" 
+        #price="ngModel"
+        required 
+        pattern="^\d+(\.\d+)?$" />
+      <div *ngIf="price.invalid && price.touched">
+        <small *ngIf="price.errors?.['required']">Price is required.</small>
+        <small *ngIf="price.errors?.['pattern']">Price must be a valid number.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="promotion">Promotion (%):</label>
+      <input 
+        type="number" 
+        id="promotion" 
+        name="promotion" 
+        [(ngModel)]="product.promotion" 
+        #promotion="ngModel"
+        max="100" />
+      <div *ngIf="promotion.invalid && promotion.touched">
+        <small *ngIf="promotion.errors?.['max']">Promotion must be 100 or less.</small>
+      </div>
+    </div>
+  
+    <div>
+      <button type="submit" [disabled]="productForm.invalid">Save</button>
+    </div>
+    <div>
+        <h3>Product List</h3>
+        <ul>
+          <li *ngFor="let product of list">
+            <strong>{{ product.name }}</strong> (ID: {{ product.id }}) - Price: {{ product.price }} - Promotion: {{ product.promotion }}% 
+          </li>
+        </ul>
+      </div>
+  </form>
+  

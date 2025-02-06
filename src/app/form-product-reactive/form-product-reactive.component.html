@@ -1,0 +1,57 @@
+<form [formGroup]="productForm" (ngSubmit)="onSave()">
+    <div>
+      <label for="name">Product Name:</label>
+      <input id="name" formControlName="name" />
+      <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+        <small *ngIf="productForm.get('name')?.errors?.['required']">Name is required.</small>
+        <small *ngIf="productForm.get('name')?.errors?.['minlength']">Name must be at least 5 characters long.</small>
+        <small *ngIf="productForm.get('name')?.errors?.['pattern']">Name can only contain letters.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="categoryId">Category:</label>
+      <input id="categoryId" formControlName="categoryId" />
+      <div *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched">
+        <small *ngIf="productForm.get('categoryId')?.errors?.['required']">Category is required.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="price">Price:</label>
+      <input id="price" formControlName="price" />
+      <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+        <small *ngIf="productForm.get('price')?.errors?.['required']">Price is required.</small>
+        <small *ngIf="productForm.get('price')?.errors?.['pattern']">Price must be a valid number.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="promotion">Promotion (%):</label>
+      <input id="promotion" formControlName="promotion" />
+      <div *ngIf="productForm.get('promotion')?.invalid && productForm.get('promotion')?.touched">
+        <small *ngIf="productForm.get('promotion')?.errors?.['max']">Promotion must be 100 or less.</small>
+        <small *ngIf="productForm.get('promotion')?.errors?.['pattern']">Promotion must be a valid number.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="image">Image URL:</label>
+      <input id="image" formControlName="image" />
+    </div>
+  
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+  
+    <div>
+      <label for="brand">Brand:</label>
+      <input id="brand" formControlName="brand" />
+    </div>
+  
+    <div>
+      <button type="submit" [disabled]="productForm.invalid">Save</button>
+    </div>
+  </form>
+  
